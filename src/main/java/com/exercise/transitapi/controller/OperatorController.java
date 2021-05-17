@@ -18,9 +18,10 @@ public class OperatorController {
     @GetMapping("/{id}/vehicles")
     public List<String> getVehiclesIdsFromAnOperator(@PathVariable("id") String operatorId,
                                                      @RequestParam("startTime") String begin,
-                                                     @RequestParam("endTime") String end) {
+                                                     @RequestParam("endTime") String end,
+                                                     @RequestParam("filter") String filter) {
 
-        return List.of("It", "Worked!", operatorId, begin, end);
+        return List.of("It", "Worked!", operatorId, begin, end, filter);
     }
 
 }
