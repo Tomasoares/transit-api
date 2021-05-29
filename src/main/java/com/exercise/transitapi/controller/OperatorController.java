@@ -1,12 +1,15 @@
 package com.exercise.transitapi.controller;
 
 import com.exercise.transitapi.manager.api.OperatorManager;
-import org.apache.coyote.Response;
+import com.exercise.transitapi.util.Filters;
+import com.exercise.transitapi.util.ParameterConverter;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/operators")
@@ -20,10 +23,22 @@ public class OperatorController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getRunningOperators(@RequestParam("startTime") String begin,
-                                                 @RequestParam("endTime") String end) {
+    public ResponseEntity<?> getRunningOperators(@RequestParam("startTime") String paramBegin,
+                                                 @RequestParam("endTime") String paramEnd) {
 
-        List<String> runningOperators = this.manager.getRunningOperators(LocalDateTime.now(), LocalDateTime.now());
+        Optional<LocalDateTime> begin = ParameterConverter.toLocalDateTime(paramBegin);
+
+        if (begin.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid or Null begin date");
+        }
+
+        Optional<LocalDateTime> end = ParameterConverter.toLocalDateTime(paramEnd);
+
+        if (end.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid or Null end date");
+        }
+
+        List<String> runningOperators = this.manager.getRunningOperators(begin.get(), end.get());
 
         if (runningOperators.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -34,12 +49,32 @@ public class OperatorController {
 
     @GetMapping("/{id}/vehicles")
     public ResponseEntity<?> getVehiclesIdsFromAnOperator(@PathVariable("id") String operatorId,
-                                                     @RequestParam("startTime") String begin,
-                                                     @RequestParam("endTime") String end,
+                                                     @RequestParam("startTime") String paramBegin,
+                                                     @RequestParam("endTime") String paramEnd,
                                                      @RequestParam("filter") String filter) {
 
-        List<String> result = List.of("It", "Worked!", operatorId, begin, end, filter);
-        return ResponseEntity.ok().body(result);
+        Optional<LocalDateTime> begin = ParameterConverter.toLocalDateTime(paramBegin);
+        if (begin.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid or Null begin date");
+        }
+
+        Optional<LocalDateTime> end = ParameterConverter.toLocalDateTime(paramEnd);
+        if (end.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid or Null end date");
+        }
+
+        List<Filters> filters = ParameterConverter.toFilters(filter);
+        if (Strings.isNotBlank(filter) && filters.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid filter");
+        }
+
+        List<String> vehiclesIds = this.manager.getVehiclesIds(operatorId, begin.get(), end.get(), filters);
+
+        if (vehiclesIds.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(vehiclesIds);
     }
 
 }
