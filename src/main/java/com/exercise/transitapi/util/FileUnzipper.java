@@ -8,8 +8,9 @@ import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class FileUnzipper {
+public final class FileUnzipper {
 
+    private FileUnzipper() {}
 
     public static void unzipFile(String file, String destinationPath) throws IOException {
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(file))) {

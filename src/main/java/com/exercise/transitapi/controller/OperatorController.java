@@ -44,7 +44,7 @@ public class OperatorController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(runningOperators);
+        return ResponseEntity.ok(runningOperators);
     }
 
     @GetMapping("/{id}/vehicles")
@@ -74,7 +74,7 @@ public class OperatorController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(vehiclesIds);
+        return ResponseEntity.ok(vehiclesIds);
     }
 
 }

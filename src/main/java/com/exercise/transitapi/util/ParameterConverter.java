@@ -13,11 +13,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ParameterConverter {
+public final class ParameterConverter {
 
     public static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("uuuuMMddHHmm");
     public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
     public static final int TIME_LENGTH = 4;
+
+    private ParameterConverter() {}
 
     public static Optional<LocalDateTime> toLocalDateTime(String date) {
         if (Strings.isBlank(date)) {

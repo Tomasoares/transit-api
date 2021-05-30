@@ -1,7 +1,7 @@
 package com.exercise.transitapi.clr;
 
 import com.exercise.transitapi.importers.api.GPSEntryImporter;
-import com.exercise.transitapi.util.Constants;
+import com.exercise.transitapi.util.FileImporterConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class GPSDataImporterCLR implements CommandLineRunner {
 
         LOGGER.info("Importing Data To Mongo Database");
 
-        boolean success = importer.importData(Constants.TRANSIT_DATA_FOLDER);
+        boolean success = importer.importData(FileImporterConstants.TRANSIT_DATA_FOLDER);
 
         if (success) {
             LOGGER.info("Imported with success!");
