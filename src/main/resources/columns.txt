@@ -1,0 +1,20 @@
+Bus GPS Data Dublin Bus GPS data across Dublin City, from Dublin City Council'traffic control, in csv format. 
+Each datapoint (row in the CSV file) has the following entries:
+
+GPSData
+
+1356998403000000,	''Timestamp micro since 1970 01 01 00:00:00 GMT x
+747,				'Line ID
+0,					'Direction
+07470001,			'Journey Pattern ID
+2012-12-31, 		'Time Frame (The start date of the production time table - in Dublin the production time table starts at 6am and ends at 3am)
+3493, 				'Vehicle Journey ID (A given run on the journey pattern)
+SL,  				'Operator (Bus operator, not the driver) x
+0,  				'Congestion [0=no,1=yes]
+-6.236852,  		'Lon WGS84 x
+53.425327,  		'Lat WGS84 x
+-709,  				'Delay (seconds, negative if bus is ahead of schedule)
+747006, 			'Block ID (a section ID of the journey pattern)
+40040,  			'Vehicle ID x
+7411,  				'Stop ID
+0  					'At Stop [0=no,1=yes] x
