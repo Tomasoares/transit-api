@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,10 +34,10 @@ public class FileUnzipperTest {
 
     @Test
     public void givenDirectory_whenFindZippedFile_mustRetrieveZippedFile() throws IOException {
-        Optional<Path> zippedFile = FileUnzipper.findZippedFile(TEST_DIRECTORY);
+        List<Path> zippedFile = FileUnzipper.findZippedFile(TEST_DIRECTORY);
 
-        assertTrue(zippedFile.isPresent());
-        assertTrue(zippedFile.get().toString().endsWith(".zip"));
+        assertTrue(!zippedFile.isEmpty());
+        assertTrue(zippedFile.get(0).toString().endsWith(".zip"));
     }
 
 }

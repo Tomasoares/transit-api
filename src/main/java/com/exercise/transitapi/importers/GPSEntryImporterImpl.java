@@ -20,14 +20,15 @@ public class GPSEntryImporterImpl implements GPSEntryImporter {
     private ZipFileExtractor extractor;
 
     @Override
-    public boolean importData(String csvDirectory) {
+    public boolean importData(String csvDirectory, String destination) throws Exception {
         LOGGER.debug("Extracting all files");
-        this.extractor.extractFiles(csvDirectory);
+        this.extractor.extractFiles(csvDirectory, destination);
 
         LOGGER.debug("Getting files references");
         List<Path> files = FileUtil.getFilesFromPath(csvDirectory);
 
         LOGGER.debug("Importing files: {}", files);
+
 
         return false;
     }

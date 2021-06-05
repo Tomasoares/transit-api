@@ -24,7 +24,8 @@ public class GPSDataImporterCLR implements CommandLineRunner {
 
         LOGGER.info("Importing Data To Mongo Database");
 
-        boolean success = importer.importData(FileImporterConstants.TRANSIT_DATA_FOLDER);
+        boolean success = importer.importData(FileImporterConstants.TRANSIT_DATA_FOLDER,
+                                              FileImporterConstants.TRANSIT_DATA_EXTRACTED_ZIP_DESTINATION);
 
         if (success) {
             LOGGER.info("Imported with success!");
