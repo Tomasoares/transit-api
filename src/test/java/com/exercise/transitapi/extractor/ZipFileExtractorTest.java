@@ -3,6 +3,7 @@ package com.exercise.transitapi.extractor;
 import com.exercise.transitapi.extractors.ZipFileExtractor;
 import com.exercise.transitapi.util.FileImporterConstants;
 import com.exercise.transitapi.util.FileUnzipper;
+import com.exercise.transitapi.util.FileUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class ZipFileExtractorTest {
 
     @BeforeEach
     public void deleteFilesInDestinationFolder() throws IOException {
-        FileUnzipper.cleanDirectory(DESTINATION);
+        FileUtil.cleanDirectory(DESTINATION);
     }
 
     @Test

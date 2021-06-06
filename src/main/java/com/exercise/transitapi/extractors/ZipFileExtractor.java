@@ -1,7 +1,9 @@
 package com.exercise.transitapi.extractors;
 
+import com.exercise.transitapi.util.Extension;
 import com.exercise.transitapi.util.FileImporterConstants;
 import com.exercise.transitapi.util.FileUnzipper;
+import com.exercise.transitapi.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -32,7 +34,7 @@ public class ZipFileExtractor {
     }
 
     private void extractMainZipFile(String path, String destinationPath) throws Exception {
-        List<Path> zippedFiles = FileUnzipper.findZippedFile(path);
+        List<Path> zippedFiles = FileUtil.findFiles(path, Extension.ZIP);
 
         if (zippedFiles.isEmpty()) {
             throw new Exception("No zipped File has been found! Path: " + path);
@@ -44,7 +46,7 @@ public class ZipFileExtractor {
     }
 
     private void extractSubZippedFiles(String destinationPath) throws IOException {
-        List<Path> zippedSubFiles = FileUnzipper.findZippedFile(destinationPath);
+        List<Path> zippedSubFiles = FileUtil.findFiles(destinationPath, Extension.GZ);
 
         if (zippedSubFiles.isEmpty()) {
             LOGGER.warn("No zipped subfolders encountered!");

@@ -54,33 +54,4 @@ public final class FileUnzipper {
             }
         }
     }
-
-    public static void deleteFile(String file) throws IOException {
-        Files.deleteIfExists(Path.of(file));
-    }
-
-    public static void cleanDirectory(String file) throws IOException {
-        FileUtils.cleanDirectory(new File(file));
-    }
-
-    public static List<Path> findZippedFile(String directory) throws IOException {
-        Path path = Path.of(directory);
-
-        if (!Files.exists(path)) {
-            throw new IOException("Directory doesn't exist! Directory: " + directory);
-        }
-
-        if (!Files.isDirectory(path)) {
-            throw new IOException("Directory is invalid! Directory: " + directory);
-        }
-
-        try (Stream<Path> files = Files.walk(path)) {
-            return files.filter(p -> p.toString().endsWith(".zip"))
-                    .collect(Collectors.toList());
-        }
-    }
-
-    public static void createDirectory(String destination) throws IOException {
-        Files.createDirectory(Path.of(destination));
-    }
 }
